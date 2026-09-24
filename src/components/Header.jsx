@@ -6,7 +6,9 @@ export default function Header({ cart }) {
     //useMemo guarda en cache
     const isEmpty = useMemo(() => cart.length === 0, [cart]);
 
-    const total = 1000;
+    const total = useMemo(() =>
+        cart.reduce((total, guitar) => total + (guitar.price * guitar.quantity), 0)
+        , [cart]);
     //en return toda estructura
     return (
         <header className="py-5 header">
@@ -73,7 +75,7 @@ export default function Header({ cart }) {
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                    
+
                                                 ))}
                                             </tbody>
                                         </table>
