@@ -3,12 +3,23 @@ import { useState, useEffect } from "react";
 import { db } from "./data/db.js";
 import Guitar from "./components/Guitar";
 //imports
+
+function initialCart() {
+  const cart = localStorage.getItem('cart');
+
+  if (cart) {
+    return JSON.parse(cart);
+  }
+
+  return [];
+}
+
 function App() {
   const [data, setData] = useState(db);
 
   const [auth, setAuth] = useState(false);
   const [total, setTotal] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(initialCart);
 
   function handlerClick(item) {
     const guitarExists = cart.findIndex((guitar) => guitar.id === item.id);
@@ -56,7 +67,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
   return (
