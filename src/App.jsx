@@ -7,6 +7,8 @@ function App() {
   const {
     cart,
     data,
+    isEmpty,
+    total,
     handlerClick,
     disminuirCantidad,
     eliminarCantidad,
@@ -18,6 +20,8 @@ function App() {
     <>
       <Header
         cart={cart}
+        isEmpty={isEmpty}
+        total={total}
         disminuirCantidad={disminuirCantidad}
         aumentarCantidad={aumentarCantidad}
         eliminarCantidad={eliminarCantidad}

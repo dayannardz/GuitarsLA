@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { db } from "../data/db";
 
 function initialCart() {
-  const cart = localStorage.getItem('cart');
+    const cart = localStorage.getItem('cart');
 
-  if (cart) {
-    return JSON.parse(cart);
-  }
+    if (cart) {
+        return JSON.parse(cart);
+    }
 
-  return [];
+    return [];
 }
 
 export const useCart = () => {
@@ -66,6 +66,15 @@ export const useCart = () => {
         setCart([]);
     }
 
+
+    //useMemo guarda en cache
+
+    const isEmpty = useMemo(() => cart.length === 0, [cart]);
+
+    const total = useMemo(() => cart.reduce((total, guitar) => total + guitar.price * guitar.quantity, 0),
+        [cart]
+    );
+
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
@@ -73,6 +82,8 @@ export const useCart = () => {
     return {
         cart,
         data,
+        isEmpty,
+        total,
         handlerClick,
         disminuirCantidad,
         eliminarCantidad,
@@ -81,4 +92,4 @@ export const useCart = () => {
     }
 }
 
-//mandar ligica del header al hook
+//mandar logica del header al hook

@@ -1,22 +1,13 @@
 import Guitar from "./Guitar";
-import { useMemo } from "react";
+
 //imports
-export default function Header({ cart,
+export default function Header({ cart, isEmpty, total,
     disminuirCantidad,
     aumentarCantidad,
     eliminarCantidad,
     vaciarCarrito
 }) {
     //toda la logica de la aplicacion va aqui
-
-    //useMemo guarda en cache
-    const isEmpty = useMemo(() => cart.length === 0, [cart]);
-
-    const total = useMemo(() =>
-        cart.reduce((total, guitar) => total + (guitar.price * guitar.quantity), 0)
-        , [cart]);
-
-
 
     //en return toda estructura
     return (
